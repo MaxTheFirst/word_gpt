@@ -6,7 +6,6 @@ from os import walk
 from shutil import rmtree
 
 
-
 def get_selections():
     try:
         word = win32.gencache.EnsureDispatch('Word.Application')
@@ -17,12 +16,13 @@ def get_selections():
         return get_selections()
     return word.Selection
 
+
 def main():
     gpt = ChatGPT(API_KEY, 'last_message.txt')
     selection = get_selections()
     result = gpt.generate(selection.Range.Text)
     selection.InsertAfter('\n'+result)
 
+
 if __name__ == '__main__':
     main()
-
